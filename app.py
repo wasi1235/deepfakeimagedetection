@@ -18,13 +18,11 @@ def preprocess_image(image):
 # Function to make prediction
 def predict_image(image):
     img = preprocess_image(image)
-    prediction = np.round(model.predict(img))
-    if prediction == 0:
-        return "Fake"
-    else:
-        return "Real"
+    prediction = model.predict(img)
+    prediction = np.round(prediction)  # Assuming binary output (0 or 1)
+    return "Fake" if prediction == 0 else "Real"
 
-# Streamlit app
+# Streamlit app interface
 st.title("Real or Fake Face Detection")
 
 # File uploader for user to upload image
@@ -38,11 +36,3 @@ if uploaded_file is not None:
     prediction = predict_image(image)
     
     st.write(f"Predicted Status: **{prediction}**")
-
-# echo "# deepfakeimagedetection" >> README.md
-# git init
-# git add README.md
-# git commit -m "first commit"
-# git branch -M main
-# git remote add origin https://github.com/wasi1235/deepfakeimagedetection.git
-# git push -u origin main
